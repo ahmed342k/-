@@ -1,257 +1,156 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>حجز موعد طبيب</title>
-    <style>
-        /* إعدادات الخطوط والخلفية الأساسية */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            -webkit-tap-highlight-color: transparent; /* منع الوميض الافتراضي على الهواتف */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حجز موعد طبي</title>
 
-        body {
-            /* خلفية متدرجة تبرز جمالية وشفافية التصميم الزجاجي */
-            background: linear-gradient(135deg, #1f4068 0%, #162447 50%, #0f1a1c 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow-x: hidden;
-        }
+<style>
+body{
+margin:0;
+font-family:Tahoma, Arial;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
 
-        /* حاوية النموذج - تأثير الزجاج الشفاف (Glassmorphism) */
-        .form-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(18px) saturate(130%);
-            -webkit-backdrop-filter: blur(18px) saturate(130%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            padding: 35px 30px;
-            border-radius: 24px;
-            width: 100%;
-            max-width: 440px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-            position: relative;
-        }
+.card{
+width:420px;
+background:#fff;
+padding:25px;
+border-radius:18px;
+box-shadow:0 15px 40px rgba(0,0,0,0.3);
+animation:fade 0.6s ease-in-out;
+}
 
-        .form-header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
+@keyframes fade{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
 
-        .form-header h2 {
-            color: #ffffff;
-            font-size: 25px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
-        }
+h1{
+text-align:center;
+margin-bottom:5px;
+color:#1877f2;
+}
 
-        .form-header p {
-            color: #b0bccc;
-            font-size: 14px;
-            line-height: 1.5;
-        }
+p{
+text-align:center;
+margin-bottom:20px;
+color:#555;
+font-size:14px;
+}
 
-        /* مجموعات الإدخال */
-        .input-group {
-            margin-bottom: 18px;
-        }
+input{
+width:100%;
+padding:12px;
+margin:8px 0;
+border:1px solid #ddd;
+border-radius:10px;
+outline:none;
+transition:0.2s;
+}
 
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #e2e8f0;
-            font-size: 14px;
-            font-weight: 500;
-            padding-right: 4px;
-        }
+input:focus{
+border-color:#1877f2;
+box-shadow:0 0 5px rgba(24,119,242,0.3);
+}
 
-        /* مدخلات نصية زجاجية شفافة وناعمة */
-        .input-group input {
-            width: 100%;
-            padding: 13px 16px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1.5px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            font-size: 15px;
-            color: #ffffff;
-            outline: none;
-            /* حركات سلسة للغاية عند التفاعل */
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+background:#1877f2;
+color:white;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
 
-        .input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.3);
-        }
+button:hover{
+background:#0d5bd7;
+}
 
-        /* عند التركيز على الحقل */
-        .input-group input:focus {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.35);
-        }
+.success{
+text-align:center;
+margin-top:10px;
+color:green;
+font-weight:bold;
+}
 
-        /* حظر وحذف الظلال والحواف الزرقاء الافتراضية نهائياً عند الضغط */
-        input:focus, button:focus {
-            outline: none !important;
-            box-shadow: none !important;
-        }
+.error{
+text-align:center;
+margin-top:10px;
+color:red;
+font-weight:bold;
+}
 
-        /* زر الإرسال الزجاجي الشفاف فائق السلاسة */
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            color: #ffffff;
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            border-radius: 14px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            /* تأثير الانتقال والانزلاق فائق النعومة والسلاسة */
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            margin-top: 10px;
-        }
-
-        /* تأثير حركي سلس عند تمرير المؤشر فوق الزر */
-        .submit-btn:hover {
-            background: rgba(255, 255, 255, 0.18);
-            border-color: rgba(255, 255, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        /* انسيابية فوريّة ومريحة عند النقر الفعلي للزر */
-        .submit-btn:active {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.25);
-            transform: translateY(1px);
-        }
-
-        /* حالة تعطيل الزر أثناء المعالجة والإرسال */
-        .submit-btn:disabled {
-            background: rgba(255, 255, 255, 0.02);
-            color: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.05);
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        /* بطاقة نجاح الإرسال الزجاجية */
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 20px;
-            background: rgba(46, 204, 113, 0.12);
-            border: 1px solid rgba(46, 204, 113, 0.25);
-            border-radius: 14px;
-            color: #2ecc71;
-            font-size: 15px;
-            font-weight: 600;
-            margin-top: 15px;
-            backdrop-filter: blur(8px);
-            animation: slideIn 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    </style>
+small{
+display:block;
+text-align:center;
+margin-top:10px;
+color:#777;
+}
+</style>
 </head>
+
 <body>
 
-    <div class="form-container">
-        <div class="form-header">
-            <h2>حجز موعد طبيب</h2>
-            <p>أدخل بياناتك بدقة لتأكيد موعدك، وسيتم إرسالها فوراً إلى العيادة</p>
-        </div>
+<div class="card">
+<h1>حجز موعد طبي</h1>
+<p>املأ البيانات وسيتم تأكيد الحجز فوراً</p>
 
-        <form id="appointmentForm">
-            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-            <input type="hidden" name="subject" value="طلب حجز موعد جديد من العيادة">
-            <input type="hidden" name="from_name" value="موقع العيادة الرقمية">
+<form id="form">
 
-            <div class="input-group">
-                <label for="name">الاسم الكامل</label>
-                <input type="text" id="name" name="اسم_الزبون" placeholder="أدخل اسمك الثلاثي" required>
-            </div>
+<input type="text" id="name" placeholder="الاسم الثلاثي" required>
 
-            <div class="input-group">
-                <label for="email">البريد الإلكتروني للزبون</label>
-                <input type="email" id="email" name="إيميل_الزبون" placeholder="example@gmail.com" required>
-            </div>
+<input type="tel" id="phone" placeholder="رقم الهاتف" required>
 
-            <div class="input-group">
-                <label for="age">العمر</label>
-                <input type="number" id="age" name="العمر" placeholder="مثال: 24" min="1" max="110" required>
-            </div>
+<input type="email" id="email" placeholder="الإيميل" required>
 
-            <div class="input-group">
-                <label for="weight">الوزن (كجم)</label>
-                <input type="number" id="weight" name="الوزن" placeholder="مثال: 68" min="1" max="250" required>
-            </div>
+<input type="datetime-local" id="time" required>
 
-            <button type="submit" id="submitBtn" class="submit-btn">إرسال وتأكيد الموعد</button>
-        </form>
+<button type="submit">حجز الموعد</button>
 
-        <div id="successMessage" class="success-message">
-            تم إرسال حجزك بنجاح وبسرعة! شكراً لك، سنقوم بالتواصل معك قريباً.
-        </div>
-    </div>
+<div id="msg"></div>
 
-    <script>
-        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
-            e.preventDefault(); // منع الصفحة من الانتقال أو التحديث لتجربة مستخدم صامتة وسلسة
-            
-            const form = this;
-            const submitBtn = document.getElementById('submitBtn');
-            const successMessage = document.getElementById('successMessage');
-            
-            // تحويل حالة الزر فوراً لإظهار استجابة ناعمة وسلسة للزبون
-            submitBtn.disabled = true;
-            submitBtn.innerText = 'جاري إرسال البيانات...';
+</form>
 
-            const formData = new FormData(form);
-            const object = Object.fromEntries(formData);
-            const json = JSON.stringify(object);
+<small>لن تغادر الصفحة - يتم الإرسال مباشرة للإدارة</small>
+</div>
 
-            // استخدام واجهة API المباشرة المتوافقة تماماً مع GitHub Pages و AJAX
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: json
-            })
-            .then(async (response) => {
-                let res = await response.json();
-                if (response.status == 200) {
-                    // إخفاء الحقول وإظهار رسالة النجاح في نفس الصفحة بسلاسة فائقة
-                    form.style.display = 'none';
-                    successMessage.style.display = 'block';
-                } else {
-                    console.log(response);
-                    alert('حدث خطأ: ' + res.message);
-                    submitBtn.disabled = false;
-                    submitBtn.innerText = 'إرسال وتأكيد الموعد';
-                }
-            })
-            .catch(error => {
-                console.log(error);
-                alert('تعذر الإرسال، يرجى التحقق من اتصال الإنترنت.');
-                submitBtn.disabled = false;
-                submitBtn.innerText = 'إرسال وتأكيد الموعد';
-            });
-        });
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+emailjs.init("YOUR_PUBLIC_KEY"); // غيّرها
+
+document.getElementById("form").addEventListener("submit", function(e){
+e.preventDefault();
+
+let params = {
+name: document.getElementById("name").value,
+phone: document.getElementById("phone").value,
+email: document.getElementById("email").value,
+time: document.getElementById("time").value
+};
+
+emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",params)
+.then(() => {
+document.getElementById("msg").innerHTML =
+"<div class='success'>تم إرسال الحجز بنجاح ✓</div>";
+document.getElementById("form").reset();
+})
+.catch(() => {
+document.getElementById("msg").innerHTML =
+"<div class='error'>فشل الإرسال، حاول مرة أخرى</div>";
+});
+
+});
+</script>
 
 </body>
 </html>
