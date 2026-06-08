@@ -8,7 +8,7 @@
 <style>
 body{
 margin:0;
-font-family:Tahoma, Arial;
+font-family:Tahoma;
 background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 height:100vh;
 display:flex;
@@ -22,25 +22,19 @@ background:#fff;
 padding:25px;
 border-radius:18px;
 box-shadow:0 15px 40px rgba(0,0,0,0.3);
-animation:fade 0.6s ease-in-out;
-}
-
-@keyframes fade{
-from{opacity:0; transform:translateY(20px);}
-to{opacity:1; transform:translateY(0);}
 }
 
 h1{
 text-align:center;
-margin-bottom:5px;
 color:#1877f2;
+margin-bottom:5px;
 }
 
 p{
 text-align:center;
-margin-bottom:20px;
-color:#555;
+color:#666;
 font-size:14px;
+margin-bottom:20px;
 }
 
 input{
@@ -50,7 +44,6 @@ margin:8px 0;
 border:1px solid #ddd;
 border-radius:10px;
 outline:none;
-transition:0.2s;
 }
 
 input:focus{
@@ -68,7 +61,6 @@ border:none;
 border-radius:10px;
 font-size:16px;
 cursor:pointer;
-transition:0.3s;
 }
 
 button:hover{
@@ -77,15 +69,15 @@ background:#0d5bd7;
 
 .success{
 text-align:center;
-margin-top:10px;
 color:green;
+margin-top:10px;
 font-weight:bold;
 }
 
 .error{
 text-align:center;
-margin-top:10px;
 color:red;
+margin-top:10px;
 font-weight:bold;
 }
 
@@ -93,7 +85,7 @@ small{
 display:block;
 text-align:center;
 margin-top:10px;
-color:#777;
+color:#888;
 }
 </style>
 </head>
@@ -102,16 +94,13 @@ color:#777;
 
 <div class="card">
 <h1>حجز موعد طبي</h1>
-<p>املأ البيانات وسيتم تأكيد الحجز فوراً</p>
+<p>املأ البيانات وسيصلك تأكيد فوري</p>
 
 <form id="form">
 
 <input type="text" id="name" placeholder="الاسم الثلاثي" required>
-
 <input type="tel" id="phone" placeholder="رقم الهاتف" required>
-
 <input type="email" id="email" placeholder="الإيميل" required>
-
 <input type="datetime-local" id="time" required>
 
 <button type="submit">حجز الموعد</button>
@@ -120,13 +109,13 @@ color:#777;
 
 </form>
 
-<small>لن تغادر الصفحة - يتم الإرسال مباشرة للإدارة</small>
+<small>الإرسال يتم مباشرة بدون مغادرة الصفحة</small>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
-emailjs.init("YOUR_PUBLIC_KEY"); // غيّرها
+emailjs.init("YOUR_PUBLIC_KEY"); // بدّلها بمفتاحك
 
 document.getElementById("form").addEventListener("submit", function(e){
 e.preventDefault();
@@ -138,19 +127,20 @@ email: document.getElementById("email").value,
 time: document.getElementById("time").value
 };
 
-emailjs.send("YOUR_SERVICE_ID","YOUR_TEMPLATE_ID",params)
+emailjs.send("YOUR_SERVICE_ID", "template_1nyqqnf", params)
 .then(() => {
 document.getElementById("msg").innerHTML =
 "<div class='success'>تم إرسال الحجز بنجاح ✓</div>";
 document.getElementById("form").reset();
 })
-.catch(() => {
+.catch((error) => {
+console.log(error);
 document.getElementById("msg").innerHTML =
-"<div class='error'>فشل الإرسال، حاول مرة أخرى</div>";
+"<div class='error'>فشل الإرسال، تأكد من الإعدادات</div>";
 });
 
 });
 </script>
 
 </body>
-</html>
+  </html>
