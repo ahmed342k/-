@@ -1,146 +1,142 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حجز موعد طبي</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>لكِ وحدكِ</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body{
-margin:0;
-font-family:Tahoma;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-}
-
-.card{
-width:420px;
-background:#fff;
-padding:25px;
-border-radius:18px;
-box-shadow:0 15px 40px rgba(0,0,0,0.3);
-}
-
-h1{
-text-align:center;
-color:#1877f2;
-margin-bottom:5px;
-}
-
-p{
-text-align:center;
-color:#666;
-font-size:14px;
-margin-bottom:20px;
-}
-
-input{
-width:100%;
-padding:12px;
-margin:8px 0;
-border:1px solid #ddd;
-border-radius:10px;
-outline:none;
-}
-
-input:focus{
-border-color:#1877f2;
-box-shadow:0 0 5px rgba(24,119,242,0.3);
-}
-
-button{
-width:100%;
-padding:12px;
-margin-top:10px;
-background:#1877f2;
-color:white;
-border:none;
-border-radius:10px;
-font-size:16px;
-cursor:pointer;
-}
-
-button:hover{
-background:#0d5bd7;
-}
-
-.success{
-text-align:center;
-color:green;
-margin-top:10px;
-font-weight:bold;
-}
-
-.error{
-text-align:center;
-color:red;
-margin-top:10px;
-font-weight:bold;
-}
-
-small{
-display:block;
-text-align:center;
-margin-top:10px;
-color:#888;
-}
+:root{--bg:#fdf3f4;--card:#ffffff;--text:#3d1a24;--accent:#be123c;--soft:#fecdd3;--line:#f3d5da;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#190a10;--card:#26101a;--text:#fbe4ea;--accent:#fb7185;--soft:#4c1d2c;--line:#3a1826}}
+:root[data-theme="dark"]{--bg:#190a10;--card:#26101a;--text:#fbe4ea;--accent:#fb7185;--soft:#4c1d2c;--line:#3a1826}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Tajawal',Tahoma,sans-serif;line-height:1.9;overflow-x:hidden}
+.hero{min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;position:relative;overflow:hidden}
+.hero::before,.hero::after{content:"";position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;z-index:0}
+.hero::before{width:320px;height:320px;background:var(--soft);top:-80px;right:-80px}
+.hero::after{width:260px;height:260px;background:var(--soft);bottom:-60px;left:-60px}
+.hero>*{position:relative;z-index:1}
+.bigheart{width:120px;height:120px;color:var(--accent);margin-bottom:8px}
+.bigheart path{fill:var(--accent);fill-opacity:0;stroke:var(--accent);stroke-width:1.2;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 3s ease forwards,fillin 1.5s 2.6s ease forwards,beat 2s 4s infinite}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fillin{to{fill-opacity:.9}}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+.bigheart{transform-origin:center}
+h1{font-family:'Amiri',serif;font-size:clamp(2.4rem,9vw,4.5rem);margin:0;color:var(--accent);line-height:1.4}
+.sub{font-size:1.15rem;max-width:30em;opacity:.9;min-height:3.6em}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#fff;border:0;border-radius:999px;padding:12px 30px;font:inherit;font-size:1.05rem;cursor:pointer;text-decoration:none;box-shadow:0 8px 24px rgba(190,18,60,.25)}
+section{max-width:760px;margin:0 auto;padding:30px 20px}
+h2{font-family:'Amiri',serif;text-align:center;color:var(--accent);font-size:2rem;margin:0 0 18px}
+.orn{display:flex;align-items:center;gap:14px;max-width:320px;margin:10px auto;color:var(--accent)}
+.orn i{flex:1;height:1px;background:var(--line)}
+.orn svg{width:18px;height:18px}
+.ic{width:30px;height:30px;stroke:var(--accent);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.counter{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.counter div{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 22px;min-width:92px;text-align:center}
+.counter b{display:block;font-size:1.9rem;color:var(--accent);font-family:'Amiri',serif}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.card h3{margin:8px 0 0;font-family:'Amiri',serif;font-size:1.4rem}
+.card p{margin:4px 0 0;opacity:.85}
+.player{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:22px;text-align:center}
+.player .ic{width:40px;height:40px}
+audio{width:100%;margin:12px 0}
+.pick{font-size:.85rem;opacity:.7}
+.letter{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:26px;font-family:'Amiri',serif;font-size:1.35rem}
+footer{text-align:center;padding:30px;opacity:.7}
+.fly{position:fixed;bottom:-30px;pointer-events:none;animation:up 6s linear forwards;z-index:5;color:var(--accent)}
+.fly svg{width:100%;height:100%;fill:currentColor}
+@keyframes up{to{transform:translateY(-110vh);opacity:0}}
 </style>
 </head>
-
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<defs>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3 5 6.5 5c2 0 3.5 1.2 5.5 3.2C14 6.2 15.5 5 17.5 5 21 5 22.8 8.6 21.5 11.8 19.5 16.4 12 21 12 21z"/></symbol>
+<symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14c1 1.8 2.5 2.7 4 2.7s3-.9 4-2.7"/><circle cx="9" cy="10" r=".6"/><circle cx="15" cy="10" r=".6"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10z"/><path d="M19 17v4M17 19h4"/></symbol>
+<symbol id="i-rings" viewBox="0 0 24 24"><circle cx="9" cy="12" r="5.5"/><circle cx="15" cy="12" r="5.5"/></symbol>
+<symbol id="i-note" viewBox="0 0 24 24"><path d="M9 18V6l10-2v12"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="16" r="2"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></symbol>
+</defs>
+</svg>
 
-<div class="card">
-<h1>حجز موعد طبي</h1>
-<p>املأ البيانات وسيصلك تأكيد فوري</p>
-
-<form id="form">
-
-<input type="text" id="name" placeholder="الاسم الثلاثي" required>
-<input type="tel" id="phone" placeholder="رقم الهاتف" required>
-<input type="email" id="email" placeholder="الإيميل" required>
-<input type="datetime-local" id="time" required>
-
-<button type="submit">حجز الموعد</button>
-
-<div id="msg"></div>
-
-</form>
-
-<small>الإرسال يتم مباشرة بدون مغادرة الصفحة</small>
+<div class="hero">
+  <svg class="bigheart" viewBox="0 0 24 24" aria-hidden="true"><path pathLength="1" d="M12 21s-7.5-4.6-9.5-9.2C1.2 8.6 3 5 6.5 5c2 0 3.5 1.2 5.5 3.2C14 6.2 15.5 5 17.5 5 21 5 22.8 8.6 21.5 11.8 19.5 16.4 12 21 12 21z"/></svg>
+  <h1 id="name">يا أجمل حكاية</h1>
+  <p class="sub" id="typed"></p>
+  <a class="btn" href="#voice" onclick="burst()"><svg class="ic" style="stroke:#fff;width:22px;height:22px"><use href="#i-mic"/></svg>اسمعي رسالتي لكِ</a>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<section>
+  <div class="orn"><i></i><svg fill="currentColor"><use href="#i-heart"/></svg><i></i></div>
+  <h2>معكِ منذ</h2>
+  <div class="counter" id="counter"></div>
+</section>
+
+<section>
+  <h2>لماذا أحبكِ</h2>
+  <div class="cards" id="reasons"></div>
+</section>
+
+<section id="voice">
+  <h2>رسالة صوتية</h2>
+  <div class="player">
+    <svg class="ic"><use href="#i-mic"/></svg>
+    <audio id="aud" controls preload="none">
+      <source src="My%20dear.mp3" type="audio/mpeg">
+      متصفحك لا يدعم تشغيل الصوت.
+    </audio>
+  </div>
+</section>
+
+<section>
+  <h2>كلمة من القلب</h2>
+  <div class="letter" id="letter">إلى أحلى ما في أيامي،<br>وجودكِ يجعل كل شيء أخف وأجمل. شكراً لأنكِ أنتِ، ولأنكِ اخترتِني. أحبكِ اليوم أكثر من أمس، وأقل من غد.</div>
+  <div class="orn" style="margin-top:28px"><i></i><svg fill="currentColor"><use href="#i-heart"/></svg><i></i></div>
+</section>
+
+<footer>صُنع بكل حب</footer>
 
 <script>
-emailjs.init("YOUR_PUBLIC_KEY"); // بدّلها بمفتاحك
-
-document.getElementById("form").addEventListener("submit", function(e){
-e.preventDefault();
-
-let params = {
-name: document.getElementById("name").value,
-phone: document.getElementById("phone").value,
-email: document.getElementById("email").value,
-time: document.getElementById("time").value
-};
-
-emailjs.send("YOUR_SERVICE_ID", "template_1nyqqnf", params)
-.then(() => {
-document.getElementById("msg").innerHTML =
-"<div class='success'>تم إرسال الحجز بنجاح ✓</div>";
-document.getElementById("form").reset();
-})
-.catch((error) => {
-console.log(error);
-document.getElementById("msg").innerHTML =
-"<div class='error'>فشل الإرسال، تأكد من الإعدادات</div>";
-});
-
-});
+var HER_NAME = "";
+var START_DATE = "2024-01-01";
+var MESSAGE = "في هذا العالم الكبير، أنتِ المكان الذي أشعر فيه بالأمان.";
+var REASONS = [
+ ["smile","ابتسامتكِ","تنسيني تعب اليوم كله."],
+ ["moon","حنانكِ","تهتمين بي بطريقة لا يفعلها غيركِ."],
+ ["spark","روحكِ","خفيفة وصادقة وتُضيء المكان."],
+ ["rings","وقوفكِ معي","كنتِ سنداً في أصعب أوقاتي."],
+ ["note","ضحكتكِ","أجمل صوت سمعته في حياتي."],
+ ["home","أنتِ البيت","معكِ أشعر أني وصلت."]
+];
+try{ if(HER_NAME) document.getElementById('name').textContent = "إلى " + HER_NAME; }catch(e){}
+var i = 0, el = document.getElementById('typed');
+(function t(){ if(i <= MESSAGE.length){ el.textContent = MESSAGE.slice(0,i++); setTimeout(t,60); } })();
+document.getElementById('reasons').innerHTML = REASONS.map(function(r){
+  return '<div class="card"><svg class="ic"><use href="#i-'+r[0]+'"/></svg><h3>'+r[1]+'</h3><p>'+r[2]+'</p></div>';
+}).join('');
+function tick(){
+  var d = Math.max(0, Date.now() - new Date(START_DATE).getTime());
+  var days = Math.floor(d/864e5), h = Math.floor(d/36e5)%24, m = Math.floor(d/6e4)%60;
+  document.getElementById('counter').innerHTML =
+   [[days,'يوم'],[h,'ساعة'],[m,'دقيقة']].map(function(x){return '<div><b>'+x[0]+'</b>'+x[1]+'</div>';}).join('');
+}
+tick(); setInterval(tick,30000);
+function burst(){
+  for(var k=0;k<12;k++){
+    var s=document.createElement('div'); s.className='fly';
+    var sz=14+Math.random()*20; s.style.width=sz+'px'; s.style.height=sz+'px';
+    s.innerHTML='<svg viewBox="0 0 24 24"><use href="#i-heart"/></svg>';
+    s.style.left=Math.random()*95+'%'; s.style.animationDelay=(Math.random()*1.5)+'s';
+    document.body.appendChild(s); setTimeout(function(n){return function(){n.remove()}}(s),8000);
+  }
+}
+setInterval(burst,9000);
 </script>
-
 </body>
-  </html>
+</html>
